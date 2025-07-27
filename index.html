@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simple To-Do List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      background: #fff;
+      padding: 20px;
+      width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: #f4f4f4;
+      padding: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    li.done {
+      text-decoration: line-through;
+      color: gray;
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      color: red;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>To-Do List</h2>
+    <input type="text" id="taskInput" placeholder="Enter a task">
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    function addTask() {
+      const input = document.getElementById('taskInput');
+      const taskText = input.value.trim();
+
+      if (taskText === "") {
+        alert("Please enter a task.");
+        return;
+      }
+
+      // Create new task item
+      const li = document.createElement('li');
+      li.textContent = taskText;
+
+      // Add click to mark as done
+      li.addEventListener('click', function () {
+        li.classList.toggle('done');
+      });
+
+      // Add delete button
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'X';
+      deleteBtn.className = 'action-btn';
+      deleteBtn.onclick = function () {
+        li.remove();
+      };
+
+      li.appendChild(deleteBtn);
+      document.getElementById('taskList').appendChild(li);
+      input.value = ""; // Clear input box
+    }
+  </script>
+</body>
+</html>
